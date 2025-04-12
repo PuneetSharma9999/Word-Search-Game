@@ -43,7 +43,6 @@ Copy
 
 ## 🌐 Live Demo
 [![Play Now](https://img.shields.io/badge/Play-Demo-green?style=for-the-badge&logo=chrome)](https://wordsearchgame.vercel.app)  
-*Replace with your actual demo link*
 
 ## 🛠️ Installation
 ```bash
@@ -52,7 +51,7 @@ git clone https://github.com/PuneetSharma9999/Word.Search.Game.git
 
 # Navigate to project directory
 cd Word.Search.Game
-```
+
 # Open in browser (choose one)
 start index.html  # Windows
 open index.html   # Mac
@@ -69,6 +68,7 @@ Edit script.js to modify:
 
 javascript
 Copy
+```
 // Word banks example
 const wordBanks = {
     easy: {
