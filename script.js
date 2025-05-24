@@ -369,21 +369,44 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSelectedCells();
     }
     
-    function handleCellMouseEnter(e) {
-        if (!isMouseDown) return;
-        const row = parseInt(e.target.dataset.row);
-        const col = parseInt(e.target.dataset.col);
-        
-        if (!selectedCells.some(cell => cell.row === row && cell.col === col)) {
-            const lastCell = selectedCells[selectedCells.length - 1];
-            const isAdjacent = Math.abs(lastCell.row - row) <= 1 && Math.abs(lastCell.col - col) <= 1;
-            
-            if (isAdjacent) {
-                selectedCells.push({ row, col });
-                updateSelectedCells();
-            }
+function handleCellMouseEnter(e) {
+    if (!isMouseDown) return;
+    const row = parseInt(e.target.dataset.row);
+    const col = parseInt(e.target.dataset.col);
+
+    const alreadySelected = selectedCells.some(cell => cell.row === row && cell.col === col);
+    if (alreadySelected) return;
+
+    const lastCell = selectedCells[selectedCells.length - 1];
+
+    // Calculate current direction vector
+    const dr = row - selectedCells[0].row;
+    const dc = col - selectedCells[0].col;
+
+    // Determine unit direction after second cell
+    if (selectedCells.length === 1) {
+        const deltaRow = row - lastCell.row;
+        const deltaCol = col - lastCell.col;
+        if (Math.abs(deltaRow) > 1 || Math.abs(deltaCol) > 1) return;
+
+        selectedCells.push({ row, col });
+        updateSelectedCells();
+    } else {
+        // Calculate expected direction vector
+        const expectedDr = selectedCells[1].row - selectedCells[0].row;
+        const expectedDc = selectedCells[1].col - selectedCells[0].col;
+
+        // Enforce straight consistent direction
+        const nextRow = lastCell.row + expectedDr;
+        const nextCol = lastCell.col + expectedDc;
+
+        if (row === nextRow && col === nextCol) {
+            selectedCells.push({ row, col });
+            updateSelectedCells();
         }
     }
+}
+
     
     function handleCellMouseUp() {
         isMouseDown = false;

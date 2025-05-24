@@ -505,3 +505,11 @@ footer a:hover {
         padding: 8px 15px;
     }
 }
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+html {
+    scroll-behavior: smooth;
+}
